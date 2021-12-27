@@ -1,0 +1,1 @@
+.venv/bin/python3 -m parking_permit
