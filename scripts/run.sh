@@ -1,1 +1,1 @@
-.venv/bin/python3 -m parking_permit
+.venv/bin/python3 -m parking_permit $1 $2

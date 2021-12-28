@@ -1,13 +1,23 @@
-from .parking_permit import Client
+import argparse
+
+from .agent import ParkingPermitAgent
 
 LICENSE_PLATE = "NJ-444-D"
 CLIENT_NUMBER = 2080009
 
 
+def get_parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser(prog="Parking Permit Queue")
+    parser.add_argument("license_plate", type=str)
+    parser.add_argument("client_number", type=str)
+    return parser
+
+
 def main():
-    client = Client(LICENSE_PLATE, CLIENT_NUMBER)
-    position = client.get_current_position()
-    print(f"Current position in queue: {position}")
+    parser = get_parser()
+    args = parser.parse_args()
+    agent = ParkingPermitAgent(args.license_plate, args.client_number)
+    agent.run()
 
 
 if __name__ == "__main__":
