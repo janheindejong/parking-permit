@@ -16,8 +16,8 @@ class MailService(MailServiceProtocol):
         self._server: str = server
         self._port: int = port
 
-    def send(self, recipient_address: str, entry: QueueEntry) -> None:
-        msg = self._build_message(recipient_address, entry)
+    def send(self, recipient: str, entry: QueueEntry) -> None:
+        msg = self._build_message(recipient, entry)
         with self._mail_server() as server:
             server.send_message(msg)
 
@@ -30,10 +30,10 @@ class MailService(MailServiceProtocol):
             server.login(self._account, self._password)
             yield server
 
-    def _build_message(self, recipient_address: str, entry: QueueEntry) -> EmailMessage:
+    def _build_message(self, recipient: str, entry: QueueEntry) -> EmailMessage:
         msg = EmailMessage()
-        msg["Subject"] = "Position in parking queue"
-        msg["To"] = recipient_address
+        msg["Subject"] = f"Position in parking queue for {entry.license_plate}"
+        msg["To"] = recipient
         msg["From"] = self._account
         msg.set_content(entry.html)
         msg.add_alternative(entry.html, subtype="html")

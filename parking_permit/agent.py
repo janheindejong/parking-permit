@@ -1,7 +1,8 @@
 import dataclasses
 import logging
+import time
 from abc import abstractmethod
-from typing import Protocol
+from typing import Protocol, Union
 
 logger = logging.getLogger(__name__)
 
@@ -10,7 +11,6 @@ logger = logging.getLogger(__name__)
 class QueueEntry:
 
     license_plate: str
-    client_number: str
     area: str
     position: int
     html: str
@@ -44,11 +44,22 @@ class ParkingPermitAgent:
         self._recipient_address: str = recipient_address
         self._queue_service: QueueServiceProtocol = queue_service
         self._mail_service: MailServiceProtocol = mail_service
+        self._position: Union[int, None] = None
+
+    def run(self):
+        while True:
+            self.run_once()
+            time.sleep(10)
 
     def run_once(self):
         entry = self._get_queue_entry()
-        logger.debug(entry)
-        self._mail_service.send(self._recipient_address, entry)
+        logger.debug(f"self={self._position}; entry={entry.position}")
+        if (not self._position) or (self._position != entry.position):
+            logger.info("Change in position; sending e-mail")
+            self._mail_service.send(self._recipient_address, entry)
+            self._position = entry.position
+        else:
+            logger.info("No change in position")
 
     def _get_queue_entry(self) -> QueueEntry:
         return self._queue_service.get_queue_entry(

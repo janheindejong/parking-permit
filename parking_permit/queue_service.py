@@ -1,3 +1,6 @@
+from abc import abstractmethod
+from typing import Protocol
+
 import requests
 from requests import Request, Response
 
@@ -9,32 +12,26 @@ URL = (
 )
 
 
+class HtmlParserProtocol(Protocol):
+    @abstractmethod
+    def parse(self, html: str) -> QueueEntry:
+        ...
+
+
 class QueueService(QueueServiceProtocol):
-    def __init__(self) -> None:
+    def __init__(self, html_parser: HtmlParserProtocol) -> None:
         self._session = requests.Session()
+        self._html_parser = html_parser
 
     def get_queue_entry(self, license_plate: str, client_number: str) -> QueueEntry:
         response = self._get_response(license_plate, client_number)
-        entry = self._parse_response(license_plate, client_number, response)
+        entry = self._html_parser.parse(response.text)
         return entry
 
     def _get_response(self, license_plate: str, client_number: str) -> Response:
         request = self._build_request(license_plate, client_number)
         response = self._send_request(request)
         return response
-
-    def _parse_response(
-        self, license_plate: str, client_number: str, response: Response
-    ) -> QueueEntry:
-        # TODO actual parsing, not just HTML
-        entry = QueueEntry(
-            license_plate=license_plate,
-            client_number=client_number,
-            area="",
-            position=0,
-            html=response.text,
-        )
-        return entry
 
     def _build_request(
         self, license_plate: str, client_number: str

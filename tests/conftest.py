@@ -4,6 +4,13 @@ from parking_permit.agent import QueueEntry
 
 
 @pytest.fixture
+def html_response() -> str:
+    with open("tests/html_response.txt", "r") as f:
+        data = f.read()
+    return data
+
+
+@pytest.fixture
 def license_plate() -> str:
     return "AB-123-CD"
 
@@ -21,14 +28,7 @@ def recipient_address() -> str:
 @pytest.fixture
 def entry(
     license_plate: str,
-    client_number: str,
+    html_response: str,
 ) -> QueueEntry:
-    entry = QueueEntry(license_plate, client_number, "", 123, "")
+    entry = QueueEntry(license_plate, "West-1.1", 42, html_response)
     return entry
-
-
-@pytest.fixture
-def html_response() -> str:
-    with open("tests/html_response.txt", "r") as f:
-        data = f.read()
-    return data

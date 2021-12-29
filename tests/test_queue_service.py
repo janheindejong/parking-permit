@@ -2,6 +2,7 @@ from unittest.mock import Mock
 
 import pytest
 import requests
+from parking_permit.html_parser import HtmlParser
 
 from parking_permit.queue_service import *
 
@@ -45,7 +46,7 @@ def requests_session_prepare_request(monkeypatch: pytest.MonkeyPatch):
 
 @pytest.fixture
 def service():
-    return QueueService()
+    return QueueService(HtmlParser())
 
 
 @pytest.fixture

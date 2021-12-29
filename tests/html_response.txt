@@ -17,9 +17,9 @@
 <h2 data-swiftype-index=false class="blok-titel tekstbrowser">Wachtlijstpositie parkeren</h2>
 <div class=resultaten>
 <h3 class=label>Uw parkeervergunning voor</h3>
-<p class=value>NJ-444-D</p>
+<p class=value>AB-123-CD</p>
 <h3 class=label>Huidige wachtlijstpositie</h3>
-<p class=value>10</p>
+<p class=value>42</p>
 <h3 class=label>Verwachte uitgiftedatum</h3>
 <p class=value>JAN 2022</p>
 <h3 class=label>Vergunninggebied</h3>
