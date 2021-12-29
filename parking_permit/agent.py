@@ -29,7 +29,7 @@ class QueueServiceProtocol(Protocol):
 
 
 class ParkingPermitAgent:
-    """Monitors pos ition in parking permit queue"""
+    """Monitors position in parking permit queue"""
 
     def __init__(
         self,
@@ -39,17 +39,17 @@ class ParkingPermitAgent:
         queue_service: QueueServiceProtocol,
         mail_service: MailServiceProtocol,
     ) -> None:
-        self._license_plate: str = license_plate
-        self._client_number: str = client_number
-        self._recipient_address: str = recipient_address
-        self._queue_service: QueueServiceProtocol = queue_service
-        self._mail_service: MailServiceProtocol = mail_service
+        self._license_plate = license_plate
+        self._client_number = client_number
+        self._recipient_address = recipient_address
+        self._queue_service = queue_service
+        self._mail_service = mail_service
         self._position: Union[int, None] = None
 
-    def run(self):
+    def run(self, wait: int):
         while True:
             self.run_once()
-            time.sleep(10)
+            time.sleep(wait)
 
     def run_once(self):
         entry = self._get_queue_entry()

@@ -11,10 +11,10 @@ class MailService(MailServiceProtocol):
     def __init__(
         self, account: str, password: str, server: str, port: int = 465
     ) -> None:
-        self._account: str = account
-        self._password: str = password
-        self._server: str = server
-        self._port: int = port
+        self._account = account
+        self._password = password
+        self._server = server
+        self._port = port
 
     def send(self, recipient: str, entry: QueueEntry) -> None:
         msg = self._build_message(recipient, entry)

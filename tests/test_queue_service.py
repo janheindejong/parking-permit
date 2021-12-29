@@ -2,8 +2,8 @@ from unittest.mock import Mock
 
 import pytest
 import requests
-from parking_permit.html_parser import HtmlParser
 
+from parking_permit.html_parser import HtmlParser
 from parking_permit.queue_service import *
 
 LICENSE_PLATE = "AB-123-C"

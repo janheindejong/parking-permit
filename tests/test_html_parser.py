@@ -4,16 +4,19 @@ from parking_permit.agent import QueueEntry
 from parking_permit.html_parser import HtmlParser
 
 
+# Arrange
 @pytest.fixture
 def html_parser() -> HtmlParser:
     return HtmlParser()
 
 
+# Act
 @pytest.fixture
 def entry(html_parser: HtmlParser, html_response: str) -> QueueEntry:
     return html_parser.parse(html_response)
 
 
+# Assess
 def test_license_plate(entry: QueueEntry):
     assert entry.license_plate == "AB-123-CD"
 

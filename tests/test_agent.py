@@ -5,6 +5,7 @@ import pytest
 from parking_permit.agent import *
 
 
+# Arrange
 @pytest.fixture
 def queue_service(entry: QueueEntry) -> MagicMock:
     service = MagicMock(spec=QueueServiceProtocol)
@@ -31,10 +32,13 @@ def agent(
 
 
 class TestAgentRunOnce:
+
+    # Act
     @pytest.fixture(autouse=True)
     def run_once(self, agent: ParkingPermitAgent):
         agent.run_once()
 
+    # Assess
     def test_queue_service_call(
         self, queue_service: MagicMock, license_plate: str, client_number: str
     ):

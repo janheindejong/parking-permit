@@ -10,6 +10,8 @@ from .queue_service import QueueService
 # TODO more professional logging; this is rather rudimentary
 logging.basicConfig(level=logging.INFO)
 
+logger = logging.getLogger(__name__)
+
 
 def get_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="Parking Permit Queue")
@@ -18,6 +20,7 @@ def get_parser() -> argparse.ArgumentParser:
     parser.add_argument("recipient_address", type=str)
     parser.add_argument("account", type=str)
     parser.add_argument("password", type=str)
+    parser.add_argument("--sleep-time", dest="sleep_time", type=int, default=60)
     parser.add_argument("--server", dest="server", type=str, default="smtp.gmail.com")
     parser.add_argument("--port", dest="port", type=str, default=465)
     return parser
@@ -26,6 +29,7 @@ def get_parser() -> argparse.ArgumentParser:
 def main():
     parser = get_parser()
     args = parser.parse_args()
+    logger.info("Starting Parking Permit app...")
     html_parser = HtmlParser()
     queue_service = QueueService(html_parser)
     mail_service = MailService(args.account, args.password, args.server, args.port)
@@ -36,7 +40,7 @@ def main():
         queue_service,
         mail_service,
     )
-    agent.run()
+    agent.run(wait=args.sleep_time)
 
 
 if __name__ == "__main__":
