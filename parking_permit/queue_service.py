@@ -4,6 +4,8 @@ import typing
 import requests
 from requests import Request, Response
 
+from .agent import QueueServiceProtocol
+
 URL = (
     "https://www.amsterdam.nl/parkeren-verkeer/parkeervergunning/"
     + "parkeervergunning-bewoners/wachtlijst/"
@@ -16,7 +18,7 @@ class Textable(typing.Protocol):
         ...
 
 
-class QueueService:
+class QueueService(QueueServiceProtocol):
     def __init__(self) -> None:
         self._session = requests.Session()
 

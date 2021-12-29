@@ -10,9 +10,8 @@ CLIENT_NUMBER = "1234567"
 URL = (
     "https://www.amsterdam.nl/parkeren-verkeer/parkeervergunning/"
     + "parkeervergunning-bewoners/wachtlijst/"
-    # + "?module=16349201&ajax=true&rich-ajax=true"
 )
-HTML_RESPONSE = "SOME TEXT"
+HTML_RESPONSE = "THIS IS AN EXAMPLE HTML RESPONSE"
 
 
 class MockResponse(requests.Response):
