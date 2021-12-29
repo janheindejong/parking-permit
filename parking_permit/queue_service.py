@@ -1,10 +1,7 @@
-import abc
-import typing
-
 import requests
 from requests import Request, Response
 
-from .agent import QueueServiceProtocol
+from .agent import QueueEntry, QueueServiceProtocol
 
 URL = (
     "https://www.amsterdam.nl/parkeren-verkeer/parkeervergunning/"
@@ -12,28 +9,32 @@ URL = (
 )
 
 
-class Textable(typing.Protocol):
-    @abc.abstractproperty
-    def text(self) -> str:
-        ...
-
-
 class QueueService(QueueServiceProtocol):
     def __init__(self) -> None:
         self._session = requests.Session()
 
-    def get_queue_entry_html(self, license_plate: str, client_number: str) -> str:
+    def get_queue_entry(self, license_plate: str, client_number: str) -> QueueEntry:
         response = self._get_response(license_plate, client_number)
-        html = self._unpack_response(response)
-        return html
+        entry = self._parse_response(license_plate, client_number, response)
+        return entry
 
     def _get_response(self, license_plate: str, client_number: str) -> Response:
         request = self._build_request(license_plate, client_number)
         response = self._send_request(request)
         return response
 
-    def _unpack_response(self, response: Textable) -> str:
-        return response.text
+    def _parse_response(
+        self, license_plate: str, client_number: str, response: Response
+    ) -> QueueEntry:
+        # TODO actual parsing, not just HTML
+        entry = QueueEntry(
+            license_plate=license_plate,
+            client_number=client_number,
+            area="",
+            position=0,
+            html=response.text,
+        )
+        return entry
 
     def _build_request(
         self, license_plate: str, client_number: str

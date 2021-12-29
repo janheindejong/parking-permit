@@ -1,21 +1,35 @@
+import dataclasses
+import logging
 from abc import abstractmethod
 from typing import Protocol
+
+logger = logging.getLogger(__name__)
+
+
+@dataclasses.dataclass
+class QueueEntry:
+
+    license_plate: str
+    client_number: str
+    area: str
+    position: int
+    html: str
 
 
 class MailServiceProtocol(Protocol):
     @abstractmethod
-    def send(self, to: str, html: str) -> None:
+    def send(self, to: str, entry: QueueEntry) -> None:
         ...
 
 
 class QueueServiceProtocol(Protocol):
     @abstractmethod
-    def get_queue_entry_html(self, license_plate: str, client_number: str) -> str:
+    def get_queue_entry(self, license_plate: str, client_number: str) -> QueueEntry:
         ...
 
 
 class ParkingPermitAgent:
-    """Monitors position in parking permit queue"""
+    """Monitors pos ition in parking permit queue"""
 
     def __init__(
         self,
@@ -32,10 +46,11 @@ class ParkingPermitAgent:
         self._mail_service: MailServiceProtocol = mail_service
 
     def run_once(self):
-        html = self._get_html()
-        self._mail_service.send(self._recipient_address, html)
+        entry = self._get_queue_entry()
+        logger.debug(entry)
+        self._mail_service.send(self._recipient_address, entry)
 
-    def _get_html(self) -> str:
-        return self._queue_service.get_queue_entry_html(
+    def _get_queue_entry(self) -> QueueEntry:
+        return self._queue_service.get_queue_entry(
             self._license_plate, self._client_number
         )

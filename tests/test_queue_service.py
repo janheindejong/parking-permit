@@ -78,7 +78,3 @@ def test_send_request(
     response = service._send_request(service_request)
     requests_session_send.assert_called_with(service_request)
     assert response == mock_response
-
-
-def test_unpack_response(service: QueueService, mock_response: MockResponse):
-    assert service._unpack_response(mock_response) == HTML_RESPONSE

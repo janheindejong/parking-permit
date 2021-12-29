@@ -4,7 +4,7 @@ from contextlib import contextmanager
 from email.message import EmailMessage
 from typing import Generator
 
-from .agent import MailServiceProtocol
+from .agent import MailServiceProtocol, QueueEntry
 
 
 class MailService(MailServiceProtocol):
@@ -16,8 +16,8 @@ class MailService(MailServiceProtocol):
         self._server: str = server
         self._port: int = port
 
-    def send(self, recipient_address: str, message: str) -> None:
-        msg = self._build_message(recipient_address, message)
+    def send(self, recipient_address: str, entry: QueueEntry) -> None:
+        msg = self._build_message(recipient_address, entry)
         with self._mail_server() as server:
             server.send_message(msg)
 
@@ -30,11 +30,11 @@ class MailService(MailServiceProtocol):
             server.login(self._account, self._password)
             yield server
 
-    def _build_message(self, recipient_address: str, message: str) -> EmailMessage:
+    def _build_message(self, recipient_address: str, entry: QueueEntry) -> EmailMessage:
         msg = EmailMessage()
         msg["Subject"] = "Position in parking queue"
         msg["To"] = recipient_address
         msg["From"] = self._account
-        msg.set_content(message)
-        msg.add_alternative(message, subtype="html")
+        msg.set_content(entry.html)
+        msg.add_alternative(entry.html, subtype="html")
         return msg

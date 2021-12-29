@@ -1,0 +1,37 @@
+ <!DOCTYPE html>
+<html lang=nl>
+<body class="ajax-body has-lazy-loading-images">
+<div class=ajax>
+<div class=script data-script="https://www.amsterdam.nl/views/blocktypes/slideshowdeluxe/js/slideshowdeluxe.js"></div>
+<div class=script data-script="https://www.amsterdam.nl/views/blocktypes/wachtlijstpositie_parkeren/js/wachtlijst.js"></div>
+<link rel=stylesheet href="https://www.amsterdam.nl/views/core/css/pagetypes/subhome.css">
+<link rel=stylesheet href="https://www.amsterdam.nl/views/blocktypes/slideshowdeluxe/css/slideshowdeluxe.css">
+<link rel=stylesheet href="https://www.amsterdam.nl/views/blocktypes/slideshowdeluxe/css/slideshowdeluxe-modern.css">
+<link rel=stylesheet href="https://www.amsterdam.nl/views/blocktypes/slideshowdeluxe/css/slideshowdeluxe-1cols.css" media="screen and (max-width:539px)">
+<link rel=stylesheet href="https://www.amsterdam.nl/views/blocktypes/wachtlijstpositie_parkeren/css/wachtlijstpositie_parkeren.css">
+<link rel=stylesheet href="https://www.amsterdam.nl/aspx/read.aspx?xdl=/views/gasd/xdl/css&amp;ItmIdts=0,1226831">
+<div class="grid-blok grid_6 grid-wachtlijstpositie-parkeren grid-blok grid-rol-wachtlijstpositieparkeren hascrease hasbgcolor bgcolor-neutral-grey2" data-layout="{&quot;id&quot;:16349201,&quot;columns&quot;:6,&quot;DimSiz&quot;:480}">
+<div class="grid-element" id=PagCls_16349201>
+<div class="grid-edge">
+<div class="grid-inside">
+<h2 data-swiftype-index=false class="blok-titel tekstbrowser">Wachtlijstpositie parkeren</h2>
+<div class=resultaten>
+<h3 class=label>Uw parkeervergunning voor</h3>
+<p class=value>NJ-444-D</p>
+<h3 class=label>Huidige wachtlijstpositie</h3>
+<p class=value>10</p>
+<h3 class=label>Verwachte uitgiftedatum</h3>
+<p class=value>JAN 2022</p>
+<h3 class=label>Vergunninggebied</h3>
+<p class=value>West-1.1</p>
+</div>
+</div><a class=startagain href="https://www.amsterdam.nl/parkeren-verkeer/parkeervergunning/parkeervergunning-bewoners/wachtlijst/">Zoek opnieuw</a>
+</div>
+</div>
+</div>
+<div class="grid-wrapper wrapper_12 social-wrapper">
+<div class="grid-container container_12" data-layout="{&quot;columns&quot;:12,&quot;DimSiz&quot;:960,&quot;MinSiz&quot;:240,&quot;block-columns&quot;:3,&quot;gutter&quot;:0,&quot;padding&quot;:10,&quot;grid-column-width&quot;:80,&quot;MaxSiz&quot;:960}">
+<div class="grid-zone grid_12 autofill" id=zone_content_extras></div>
+</div>
+</div>
+</div>
