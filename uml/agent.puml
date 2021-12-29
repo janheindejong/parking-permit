@@ -1,0 +1,12 @@
+@startuml Agent
+
+
+interface MailServiceProtocol {}
+
+interface QueueServiceProtocol {}
+
+class Agent {}
+
+class JeMoeder {}
+
+@enduml
