@@ -51,16 +51,19 @@ def service():
 
 @pytest.fixture
 def service_request(service: QueueService):
-    request = service._create_request(LICENSE_PLATE, CLIENT_NUMBER)
+    request = service._build_request(LICENSE_PLATE, CLIENT_NUMBER)
     return request
 
 
-def test_create_request(service_request: Request):
+def test_build_request(service_request: Request):
     assert service_request.method == "GET"
     assert service_request.url == URL
     assert service_request.params == {
         "kenteken": LICENSE_PLATE,
         "klantnummer": CLIENT_NUMBER,
+        "module": 16349201,
+        "ajax": "true",
+        "rich-ajax": "true",
     }
 
 
@@ -78,5 +81,5 @@ def test_send_request(
     assert response == mock_response
 
 
-def test_parse_response(service: QueueService, mock_response: MockResponse):
-    assert service._parse_response(mock_response) == HTML_RESPONSE
+def test_unpack_response(service: QueueService, mock_response: MockResponse):
+    assert service._unpack_response(mock_response) == HTML_RESPONSE

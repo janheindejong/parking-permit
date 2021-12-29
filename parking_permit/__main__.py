@@ -2,9 +2,6 @@ import argparse
 
 from .agent import ParkingPermitAgent
 
-LICENSE_PLATE = "NJ-444-D"
-CLIENT_NUMBER = 2080009
-
 
 def get_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="Parking Permit Queue")

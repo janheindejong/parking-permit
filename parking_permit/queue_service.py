@@ -10,7 +10,7 @@ URL = (
 )
 
 
-class ResponseProtocol(typing.Protocol):
+class Textable(typing.Protocol):
     @abc.abstractproperty
     def text(self) -> str:
         ...
@@ -20,12 +20,20 @@ class QueueService:
     def __init__(self) -> None:
         self._session = requests.Session()
 
-    def get_queue_information(self, license_plate: str, client_number: str) -> str:
-        request = self._create_request(license_plate, client_number)
+    def get_queue_entry_html(self, license_plate: str, client_number: str) -> str:
+        response = self._get_response(license_plate, client_number)
+        html = self._unpack_response(response)
+        return html
+
+    def _get_response(self, license_plate: str, client_number: str) -> Response:
+        request = self._build_request(license_plate, client_number)
         response = self._send_request(request)
+        return response
+
+    def _unpack_response(self, response: Textable) -> str:
         return response.text
 
-    def _create_request(
+    def _build_request(
         self, license_plate: str, client_number: str
     ) -> requests.Request:
         request = Request(
@@ -46,6 +54,3 @@ class QueueService:
             prepped = s.prepare_request(request)
             response = s.send(prepped)
         return response
-
-    def _parse_response(self, response: ResponseProtocol):
-        return response.text

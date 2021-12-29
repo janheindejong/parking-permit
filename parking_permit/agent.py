@@ -9,11 +9,11 @@ class ParkingPermitAgent:
         self._client_number: str = client_number
         self._queue_service: QueueService = QueueService()
 
-    def run(self):
-        page = self.get_full_page()
+    def run_once(self):
+        page = self.get_html()
         print(page)
 
-    def get_full_page(self) -> str:
-        return self._queue_service.get_queue_information(
+    def get_html(self) -> str:
+        return self._queue_service.get_queue_entry_html(
             self._license_plate, self._client_number
         )
