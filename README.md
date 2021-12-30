@@ -13,18 +13,4 @@ This is a little app I made to track the position in the parking permit queue fo
 
 ## Structure 
 
-```plantuml
-@startuml Agent
-
-
-interface MailServiceProtocol {}
-
-interface QueueServiceProtocol {}
-
-class Agent {}
-
-class JeMoeder {}
-
-@enduml
-
-```
+![Agent](https://plantuml.com/plantuml/png/hLJ1IiGm4BtdA-POqVv04LaFWXTbnGy8sNJSBQH9JQOkiko_EqrZ6zbIGUofp9kyz-Pbo2QGyjIt1kxtQ4a8qLX2_wOqmfDgp2lwZqRZrZjosXau2U3l6avg5yWhJMS8QEk2N0LSk04cyPyLlFJOuyFmVmNb7JmxYqASS_ROiKp_at-F9D-7PXcv2yC7R43P6KMOLBLf69IsRtVeOotApYu6RMrK2EESIQY4Ix84N38cmADkkeYfklOOGWws79aCur3LKe2fRvndQbpA8WNjUriSLKCLS7HpbXCedTLOpC0qPoOEJTiPRDbpMBdK4fJMhhUK3zGnrT7vEjOW5GVVAPJlKkVyQ34v--DIF59hjigpmDh6TKD7SU3UzQkUsV84LZH-9qxC-ONbt2jBNSA1g9DHWhExT94y_DkwZulEvQKrN3HwMwPNO24Ynl8pGcpuXldT-080 "Agent")

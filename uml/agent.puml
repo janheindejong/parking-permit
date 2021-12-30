@@ -1,12 +1,50 @@
 @startuml Agent
 
 
-interface MailServiceProtocol {}
+interface MailServiceProtocol {
+    + {abstract} send(to: str, entry: QueueEntry) -> None
 
-interface QueueServiceProtocol {}
+}
 
-class Agent {}
+interface QueueServiceProtocol {
+     + {abstract} get_queue_entry(license_plate: str, client_number: str) -> QueueEntry
+}
 
-class JeMoeder {}
+class Agent {
+    - license_plate: str
+    - client_number: str
+    - recipient_address: str
+    - mail_service: MailServiceProtocol
+    - queue_service: QueueServiceProtocol
+    + run(wait: int) -> None
+    + run_once() -> None
+}
+
+class MailService implements MailServiceProtocol {
+    - account: str
+    - password: str 
+    - server: str 
+    - port: int
+    + send(to: str, entry: QueueEntry) -> None
+
+}
+
+interface HtmlParserProtocol {
+    + {abstract} parse(html: str) -> QueueEntry
+}
+
+class HtmlParser implements HtmlParserProtocol {
+    + parse(html: str) -> QueueEntry
+}
+
+
+class QueueService implements QueueServiceProtocol {
+    - http_parser: HtmlParserProtocol
+    + get_queue_entry(license_plate: str, client_number: str) -> QueueEntry
+}
+
+Agent -> MailServiceProtocol
+QueueServiceProtocol <- Agent
+HtmlParserProtocol <- QueueService
 
 @enduml
