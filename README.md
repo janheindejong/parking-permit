@@ -11,3 +11,20 @@ This is a little app I made to track the position in the parking permit queue fo
 - [ ] Deploy to cloud
 
 
+## Structure 
+
+```plantuml
+@startuml Agent
+
+
+interface MailServiceProtocol {}
+
+interface QueueServiceProtocol {}
+
+class Agent {}
+
+class JeMoeder {}
+
+@enduml
+
+```
